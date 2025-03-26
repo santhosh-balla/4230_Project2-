@@ -1,0 +1,15 @@
+Added an attack placeholder
+Added an Icon for the knight character
+Added an Icon for the lives that the knight uses
+
+Made changes to the player, Changes:
+Switched the key presses from E to F
+*Added an int called life to keep track of the lives a player object has. Not going to use the built in varable lives as that's a global variable 
+shared across all instances. Each player should have their own life. 
+*Added a bool, has died, to check if the player is out of lives
+*Created an alarm 0 
+*Alarm 0 "properly" respawns the player.
+
+
+Other notes:
+The obj_block and obj_death are currently visable. They will not be in later builds. They are there as funtionaity and might be replaced.
