@@ -1,0 +1,81 @@
+Additions
+Halo Platfom (Gonna use for when the player respawns.)
+Player can now jump again in the air
+Added a obj_KnighMagicShield (This will be unique to the knight character, they might be the only character without projectiles.)
+*Create Event:
+creator = noone;
+*Step Event:
+//This is for the knight character. It should follow the character based on their position.
+if (creator != noone) 
+{ 
+    x = creator.x + (creator.image_xscale > 0 ? 20 : -20); 
+    y = creator.y;
+	image_xscale = creator.image_xscale	
+}
+
+if(creator.state != ActionStates.blocking)
+{
+	instance_destroy();
+}
+
+Changes
+obj_player:
+*Made changes to the create event
+**Added extraJumps
+**Added maxExtraJumps
+*Made changes to the step event
+**Made changes to the if(keyboard_check_pressed(vk_up)) check
+***Added within if(keyboard_check_pressed(vk_up)) check
+if(!instance_place(x, y+1, obj_block) && extraJumps > 0)
+{
+	extraJumps--;
+	vspeed = jump_height;
+	sprite_index = spr_Knight_Char_Falling;
+	//show_message("Air Jumped!")
+}
+**Changed, if(instance_place(x, y+1, obj_block)), to 
+if(instance_place(x, y+1, obj_block))
+{
+	gravity = 0;
+	sprite_index = spr_Knight_Char_Standard;
+	extraJumps = maxExtraJumps;
+}
+**Added code to prevent player from getting stuck after double jumping.
+	if(instance_place(x, y, obj_block)  && !((instance_place(x+.5, y, obj_block) || (instance_place(x-.5, y, obj_block)))))
+	{
+        //If the player is directly inside a block, 
+		//move the player up a little bit to avoid getting stuck.
+        while (instance_place(x, y, obj_block)) 
+		{
+            y -= sign(vspeed);
+        }
+		
+        vspeed = 0;
+    }
+**Made changes within the if (state == ActionStates.blocking && instance_place(x, y + 1, obj_block))
+***When the knight is in a blocking state, their movement speed is cut in half.
+*Made changes to the press F key
+**Code added:
+var createdShield = instance_create_layer(x, y, "Character_Instances", obj_knightMagicShield)
+
+    with (createdShield) {
+        creator = other; // Store player's ID in the shield instance
+		
+        //x = other.x + (image_xscale > 0 ? 20 : -20); // Offset position based on player's direction
+		if(image_xscale < 0)
+		{
+			 x = other.x - 18
+		}
+		
+		else if(image_xscale > 0)
+		{
+			 x = other.x + 18
+		}
+		
+		//Face the same direction of the character that created the shield
+        image_xscale = creator.image_xscale; 
+    }
+
+Other notes:
+The player can jump when they are in the air, so if they fall off the stage the can use a jump to recover.
+Changed the project name to "For Glory", the game name.
