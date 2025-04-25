@@ -1,0 +1,29 @@
+Additions
+Added Knight Char Strong Attack animation
+Added Knight Char Fast Attack animation
+When pressing "e" the player does a fast attack
+When pressing "q" the player does a strong attack
+Added a obj_char for all character objects
+Added code in obj_char
+Added obj_destroyable
+Added code in playerAttackCollider
+
+Changes
+Replaced the old hurt SFX with a new one
+Changed code within the obj_playerLifeDisplay so it now displays how much damage the player has taken
+Changed code within the gameManager to quickly debug the game
+*Alt + N goes to the next room
+*Alt + B goes to the previous room
+*Alt + Home button goes to the debug room 
+*Alt + Pageup increases all player's lives
+*Alt + Pagedown decreases all player's lives
+*Alt + f12 increases all player's damage taken
+*Alt + f11 decreases all player's damage taken
+The playerAttackCollider now pushes back char's when they collide with it. 
+
+Fixes:
+The player no longer get stuck after landing when doing a double jump.
+
+Other notes:
+The attackCollider will only be temporaly visable. Further in development the colldier should be replaced or not visable.
+The HaloPlatform does not destroy itself properly. It should despawn after a few seconds when spawning in. 
